@@ -1,0 +1,31 @@
+<h1><%= link_to @cat.name, "#{@cat.id}/edit" %></h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Birth Date</th>
+    <th>Color</th>
+    <th>Sex</th>
+  </tr>
+  <tr>
+    <td><%= @cat.name %></td>
+    <td><%= @cat.age %></td>
+    <td><%= @cat.birth_date %></td>
+    <td><%= @cat.color %></td>
+    <td><%= @cat.sex %></td>
+  </tr>
+</table>
+
+<h3>Cat Rental Requests</h3>
+
+<%= link_to "Make a Request", new_cat_rental_request_url%>
+
+
+<% @cat_rental_requests.each do |request|%>
+  <p>Start Date: <%= request.start_date%>  End Date: <%= request.end_date%>  Status: <%= request.status%>
+
+    <%= button_to "Approve", approve_rental_request_url(request), method: "put" %>
+    <%= button_to "Deny", deny_rental_request_url(request), method: "put" %>
+  </p>
+<% end%>

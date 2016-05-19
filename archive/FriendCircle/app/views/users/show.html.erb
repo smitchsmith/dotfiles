@@ -1,0 +1,12 @@
+<h1> Friend Circles </h1>
+
+<%= link_to "Create a new friend circle", new_friend_circle_url(@user.id) %>
+
+<%= render @user.friend_circles %>
+
+<%= link_to "New Post", new_post_url%>
+
+<%= render @user.posts %>
+
+<h4>Feed</h4>
+<%= render @user.post_feeds %>

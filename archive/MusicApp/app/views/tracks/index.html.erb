@@ -1,0 +1,6 @@
+<h1><%= link_to "#{@album.name}", album_url(@album) %></h1>
+
+<h3>Tracks</h3>
+<%= render "tracks" %>
+
+<h4><%= link_to "New Track", new_track_url(@album) %></h4>

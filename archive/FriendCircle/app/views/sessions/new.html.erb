@@ -1,0 +1,23 @@
+<h1>Sign In</h1>
+
+<form action="<%= session_url %>" method="POST">
+
+  <input type="hidden" name="authenticity_token"
+  value="<%= form_authenticity_token%>">
+
+  <input type="text" name="user[email]" placeholder="email">
+  <input type="text" name="user[password]" placeholder="password">
+
+  <input type="submit" value="Sign In">
+</form>
+
+<h1>Forgot Password?</h1>
+
+<form action="<%= reset_password_request_url %>" method="POST">
+  <input type="hidden" name="authenticity_token"
+  value="<%= form_authenticity_token%>">
+  <input type="hidden" name="_method" value="PUT">
+
+  <input type="text" name="user[email]" placeholder="email">
+  <input type="submit" value="Submit">
+</form>

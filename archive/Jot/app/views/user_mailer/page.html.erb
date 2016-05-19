@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @page.title %> was updated!</h1>
+    <p>
+      Check it out <%= link_to "here", page_url(@page.url_fragment)%>
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>

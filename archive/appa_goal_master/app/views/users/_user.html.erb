@@ -1,0 +1,14 @@
+<h3><%= user.username %></h3>
+
+<form action="<%= fancy_destroy_goals_url %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <%= auth_token %>
+  <select name="id">
+    <% user.goals.each do |goal| %>
+    <option value="<%= goal.id %>"><%= goal.title %></option>
+      <% end %>
+  <input type="submit" value="Delete <%= user.username %>'s Goal">
+
+</form>
+
+<%= button_to "Delete #{user.username}", user_url(user), method: :delete %>

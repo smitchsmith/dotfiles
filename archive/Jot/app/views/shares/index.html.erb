@@ -1,0 +1,33 @@
+<div>
+
+  <h3><%= @page.title%>'s Shares</h3>
+
+  <h4>Owner: <%= @owner.username %></h4>
+
+  <h4>Shared To:</h4>
+  <% @shares.each do |share| %>
+    <%= share.sharee.username %>
+    <%= button_to "Delete Share", share_url(share) , class: "delete_share" , method: "delete", remote: true %>
+  <% end %>
+
+  <h4>Share with</h4>
+  <form action="<%= shares_url(@page.url_fragment) %>" method="post" data-remote="true" id="share_form">
+    <%= authenticity_token %>
+    <select name="share[sharee_id]" class="chosen-select">
+      <%= @possible_shares.each do |user| %>
+        <option value="<%= user.id %>"><%= user.username %></option>
+      <% end %>
+    </select>
+
+    <input type="submit">
+  </form>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $(".chosen-select").chosen({
+      width: "150px",
+      disable_search_threshold: 10
+    })
+  });
+</script>

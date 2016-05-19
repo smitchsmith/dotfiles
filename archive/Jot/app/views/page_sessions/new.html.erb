@@ -1,0 +1,14 @@
+<div id="container" class="users_show">
+  <script>
+    $("#container").prepend($("#header"))
+  </script>
+
+  <h3> Enter Page Password</h3>
+  <br>
+  <form action="<%= page_session_url(@page.url_fragment) %>" method="post">
+    <%= authenticity_token %>
+    <input type="password" name=page[password]>
+    <br><br>
+    <input type="submit">
+  </form>
+</div>

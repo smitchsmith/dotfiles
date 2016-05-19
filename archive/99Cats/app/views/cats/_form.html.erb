@@ -1,0 +1,44 @@
+ <% if @cat.persisted? %>
+    <form action="/cats/<%= @cat.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+  <% else %>
+    <form action="/cats" method="post">
+  <% end %>
+
+  <input type="hidden"
+           name="authenticity_token"
+           value="<%= form_authenticity_token %>">
+  <label for="cat_name">Name</label>
+  <input type="text" name="cat[name]" id="cat_name" value="<%= @cat.name %>">
+  <br><br>
+
+  <label for="cat_age">Age</label>
+  <input type="text" name="cat[age]" id="cat_age" value="<%= @cat.age %>">
+  <br><br>
+
+  <input type="radio" name="cat[sex]" id="cat_sex_female" value="F" <%= "checked" if @cat.sex == "F"%>>
+  <label for="cat_sex_female">Female</label>
+  <input type="radio" name="cat[sex]" id="cat_sex_male" value="M" <%= "checked" if @cat.sex == "M"%>>
+  <label for="cat_sex_male">Male</label>
+  <br><br>
+
+  <label for="cat_color">Color</label>
+  <select name="cat[color]" id="cat_color">
+    <option></option>
+    <option value="black" <%= "selected" if @cat.color == "black"%>>Black</option>
+    <option value="white" <%= "selected" if @cat.color == "white"%>>White</option>
+    <option value="grey" <%= "selected" if @cat.color == "grey"%>>Grey</option>
+  </select>
+  <br><br>
+
+  <input type="date" name="cat[birth_date]" value="<%= @cat.birth_date %>">
+  <br><br>
+
+  <% if @cat.persisted? %>
+     <input type="submit" value="Update cat">
+   <% else %>
+     <input type="submit" value="Create cat">
+   <% end %>
+
+</form>
+

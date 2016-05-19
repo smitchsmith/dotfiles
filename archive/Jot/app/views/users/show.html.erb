@@ -1,0 +1,23 @@
+<div id="container" class="users_show">
+  <script>
+    $("#container").prepend($("#header"))
+  </script>
+
+  <div class="group">
+    <ul class="jots">
+      <h3>Public Jots</h3>
+    <% @public_pages.each do |page| %>
+      <li><%= link_to page.title, page_url(page.url_fragment) %></li>
+    <% end %>
+    </ul>
+
+    <% if (current_user && current_user == @user) %>
+      <ul class="jots">
+        <h3>Private Jots</h3>
+      <% @private_pages.each do |page| %>
+        <li><%= link_to page.title, page_url(page.url_fragment) %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

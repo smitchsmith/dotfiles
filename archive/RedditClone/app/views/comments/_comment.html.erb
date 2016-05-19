@@ -1,0 +1,22 @@
+<% if comments_by_parent_id[nil].include?(comment) %>
+
+<ul>
+  <li><%= comment.text %><%= button_to "Reply", link_comment_url(comment.link, comment) %>
+</li>
+
+  <% comments_by_parent_id[comment.id].each do |child| %>
+
+
+        <% new_hash = comments_by_parent_id.merge(
+        {nil => comments_by_parent_id[comment.id]}
+        ) %>
+
+        <%= render partial: "comments/comment", locals:
+        {comment: child, comments_by_parent_id: new_hash }
+        %>
+
+  <% end %>
+
+</ul>
+<% end %>
+

@@ -1,0 +1,10 @@
+<h2><%= post.body %></h2>
+
+<% post.links.each do |link| %>
+  <%= link.address %><br>
+<% end %>
+
+<h4>Shared with</h4>
+<% post.friend_circles.each do |fc| %>
+  <%= fc.title %><br>
+<% end %>

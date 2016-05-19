@@ -1,0 +1,22 @@
+<div id="container" class="users_show">
+  <script>
+    $("#container").prepend($("#header"))
+  </script>
+  <br>
+  <form action="<%= users_url %>" method="POST">
+
+    <%= authenticity_token %>
+
+    <label>Username
+    <input type="text" name="user[username]"></label>
+    <br><br>
+    <label>E-mail
+    <input type="text" name="user[email]"></label>
+    <br><br>
+    <label>Password
+    <input type="password" name="user[password]"></label>
+    <br><br>
+    <input type="submit">
+
+  </form>
+</div>

@@ -1,0 +1,19 @@
+<div id="container" class="users_show">
+    <script>
+      $("#container").prepend($("#header"))
+    </script>
+  <h1>Reset Password!</h1>
+  <br>
+  <form action="<%= password_reset_url(@user.password_reset)  %>" method="POST">
+
+    <%= authenticity_token %>
+    <input type="hidden" name="_method" value="PUT">
+    <label>Enter a new password
+    <input type="password" name="password1"></label>
+    <br><br>
+    <label>Enter the same password again
+    <input type="password" name="password2"></label>
+    <br><br>
+    <input type="submit">
+  </form>
+</div>

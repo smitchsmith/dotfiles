@@ -1,0 +1,62 @@
+<script>
+  $(document).ready(function(){
+    $(".chosen-select").chosen({
+      width: "150px",
+      disable_search_threshold: 10
+    })
+  });
+</script>
+
+<li id="help_li">
+  <img src="/assets/question.png" id="help">
+</li>
+
+<li id="favorites_li"></li>
+
+<li id="syntax_li" class="dialog" >
+  <img src="/assets/code.png">
+  <div id="syntax" class="box">
+    <h3>Syntax Highlighting</h3>
+    <select id="syntax_highlighting" class="chosen-select">
+      <% syntaxes.each(function (syntax) { %>
+        <option data-id="<%= syntax.id %>"
+        	<%= syntax.id === page.syntax.id ? "selected" : "" %> ><%= syntax.get("title") %></option>
+      <% }); %>
+    </select>
+    <span class="arrow-right"></div>
+  </div>
+</li>
+
+<li id="versions_li" class="dialog" >
+  <img src="/assets/hourglass1.png">
+  <div id="versions" class="box">
+    <h3>Versions</h3>
+
+    <select id="version_dropdown" class="chosen-select">
+      <% versions.each(function (version) { %>
+        <option value="<%= version.id %>" data-id="<%= version.id %>"><%= "Version " + version.get("number") %></option>
+      <% }); %>
+    </select>
+
+    <br><br>
+    <form id="closest_jot">
+      <p>Go back to the Jot from...</p>
+      <input type="datetime-local">
+      <br><br>
+      <input type="submit">
+    </form>
+    <span class="arrow-right"></div>
+  </div>
+</li>
+
+<li id="binary_li" class="dialog">
+  <img src="/assets/file1.png">
+  <div id="binaries" class="box">
+  </div>
+</li>
+
+<% if (!page.get("is_public")) { %>
+  <li id="sharing_li" class="pointer">
+    <img src="/assets/sharing.png" class="open_sharing">
+  </li>
+<% }; %>

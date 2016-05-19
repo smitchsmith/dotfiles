@@ -1,0 +1,22 @@
+<% comments.each(function (comment) { %>
+  <div class="comment_show group">
+    <div class="sidebar">
+      <% if (Jot.current_user.id === comment.get("owner_id")) { %>
+        <img src="/assets/trash.png" class="delete_comment" data-id="<%= comment.id %>">
+      <% } else { %>
+        <div class="delete_comment_filler"></div>
+      <% }; %>
+      <div class="info">
+        <div class="username"><%= comment.get("username") %></div>
+        <div class="created_at timeago" title="<%= comment.get("created_at") %>"></div>
+      </div>
+    </div>
+    <div class="body"><img src="assets/quote.png"><%= comment.get("body") %></div>
+  </div>
+<% }); %>
+
+<script type="text/javascript">
+   $(document).ready(function() {
+     $(".timeago").timeago();
+   });
+</script>

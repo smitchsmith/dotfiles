@@ -1,0 +1,87 @@
+class CLI
+  attr_accessor :user
+
+  def initialize
+    @user = nil #user object
+  end
+
+  def run
+    set_user
+    choose_action
+  end
+
+  def set_user
+    puts "Input your e-mail:"
+    input = gets.chomp
+    user = User.find_by_email(input)
+
+    if user.nil?
+      user = User.new
+      user.email = input
+      user.save!
+    end
+
+    @user = user
+  end
+
+  def choose_action
+    puts "What do you want to do?"
+    puts "0. Create shortened URL"
+    puts "1. Visit shortened URL"
+    puts "2. Tag a URL"
+    puts "3. Get most popular links for tag"
+    input = gets.chomp.to_i
+
+    case input
+    when 0
+      create_url
+    when 1
+      visit_url
+    when 2
+      tag_url
+    when 3
+      get_most_popular
+    end
+  end
+
+  def get_most_popular
+    puts "Enter the tag"
+    tag = gets.chomp
+    puts TagTopic.most_popular_link(tag).long_url
+  end
+
+  def tag_url
+    puts "Enter the URL you wish to tag"
+    short_url = gets.chomp
+    url_object = ShortenedUrl.find_by_short_url(short_url)
+
+    puts "Enter the tag"
+    tag = gets.chomp
+    tag_object = TagTopic.create_if_not_existing!(tag)
+
+    Tagging.create_for_user_and_long_url!(@user, url_object, tag_object)
+    puts "Tagged!"
+  end
+
+  def create_url
+    puts "Type in your long URL"
+    long_url = gets.chomp
+
+    shortened_url = ShortenedUrl.create_for_user_and_long_url!(@user, long_url)
+    puts "Short URL is: #{shortened_url.short_url}"
+  end
+
+  def visit_url
+    puts "Type in your short URL"
+    short_url = gets.chomp
+    url_object = ShortenedUrl.find_by_short_url(short_url)
+    Visit.record_visit!(@user, url_object)
+    puts "Opening!"
+    Launchy.open(url_object.long_url)
+  end
+
+end
+
+if $PROGRAM_NAME == __FILE__
+  CLI.new.run
+end

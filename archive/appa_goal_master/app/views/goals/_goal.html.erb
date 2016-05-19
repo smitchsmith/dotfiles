@@ -1,0 +1,9 @@
+
+<h3><%= goal.title %></h3>
+<p><%= goal.description %></p>
+<p><% if goal.completed %>
+     <%= "Completed!" %>
+   <% else %>
+     <%= button_to "Mark as Complete", goal_url(goal), method: :put %>
+   <% end %></p>
+<p>Visibility: <%= goal.visibility ? "Public" : "Private" %></p>

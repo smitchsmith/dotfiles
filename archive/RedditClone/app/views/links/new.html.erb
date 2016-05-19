@@ -1,0 +1,32 @@
+<h1>Add a link!</h1>
+
+<form action="<%= links_url %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <label>
+    Link Title:
+    <input type="text" name="link[title]" value="">
+  </label>
+  <br>
+  <label>
+    Link URL:
+    <input type="text" name="link[url]" value="">
+  </label>
+  <br>
+  <label>
+    Link Note:
+    <input type="text" name="link[text]" value="">
+  </label>
+  <br>
+
+    <h5>Which subs do you want to add this to?</h5>
+
+    <% @subs.each do |sub| %>
+
+    <input type="checkbox" name="subs[]" value="<%= sub.id %>"><%= sub.name %>
+    <br>
+    <% end %>
+
+  <input type="submit" value="Add Link">
+
+</form>

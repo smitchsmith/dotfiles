@@ -1,0 +1,148 @@
+<div id="body" class="group">
+  <div id="main" class="group">
+    <div id="content">
+      <h1><%= @page.title || "New Jot" %></h1>
+
+        <% if @page.persisted? %>
+          <form action="<%= page_url(@page.url_fragment) %>" method="POST">
+          <input type="hidden" name="_method" value="PUT">
+        <% else %>
+          <form action="<%= pages_url(@page.url_fragment) %>" method="POST">
+        <% end %>
+
+        <%= authenticity_token %>
+
+        <label>Title
+          <input type="text" name="page[title]" value="<%= @page.title %>">
+        </label>
+        <br><br>
+
+        <% if @page.persisted? %>
+          <%= link_to "Change Password", page_change_password_url(@page.url_fragment) if @page.password_digest %>
+        <% else %>
+
+          <label>Optional Password
+            <input type="password" name="page[password]">
+          </label>
+
+          <% if current_user %>
+            <br><br>
+            <input type="hidden" name="page[is_public]" value="false">
+
+            <label>Public?
+              <input type="checkbox" name="page[is_public]"
+                value="true"
+                <%= "checked" unless !@page.is_public? %>
+              >
+            </label>
+
+          <% else %>
+            <p>Sign in to create a shared Jot!</p>
+          <% end %>
+
+        <% end %>
+
+        <br><br>
+        <input type="submit" value="Save">
+      </form><br><br>
+
+      <form action="<%= versions_url%>" method="post">
+        <%= authenticity_token %>
+
+        <label>Body
+          <textarea id="codemirror" name="version[body]" style="display: none"><%= (!@versions.empty? && @versions.last.body) || "" %></textarea>
+        </label>
+        <br><br>
+
+        <input type="submit" value="Save New Version">
+      </form>
+
+    </div>
+
+    <div id="comments">
+      <%= render "comments/form" %>
+
+      <h2>Comments</h2>
+    <%= render @comments %>
+    </div>
+  </div>
+
+
+  <div id="sidebar">
+    <strong>Versions</strong>
+    <br><br>
+    <select>
+      <% @versions.reverse.each_with_index do |version, i|%>
+
+      <% version_num = @versions.length - i %>
+
+        <option value="<%= version.id %>">Version <%= version_num %></option>
+
+      <% end %>
+    </select>
+    <br><br>
+
+
+
+    <% if current_user %>
+      <strong>Favorites</strong>
+      <br><br>
+      <%= link_to "Favorites", favorites_url(current_user) %>
+      <br><br>
+
+      <form action="<%= favorite_url(@page.url_fragment) %>" method="POST">
+        <%= authenticity_token %>
+
+        <% if current_user.favorite_pages.include?(@page) %>
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Unfavorite">
+        <% else %>
+          <input type="submit" value="Favorite">
+        <% end %>
+
+      </form>
+    <% else %>
+      <p>Sign in to save favorites!</p>
+    <% end %>
+    <br>
+
+    <% if @page.is_public? %>
+      <!-- possible subscription -->
+    <% else %>
+      <strong>Sharing</strong>
+      <br><br>
+      <%= link_to "Shares", shares_url(@page.url_fragment)%>
+      <br>
+    <% end %>
+
+    <p><strong>Upload a File</strong> (Less than 5mb)</p>
+    <form enctype="multipart/form-data" action="<%= binaries_url(@page.url_fragment) %>" method="post">
+      <%= authenticity_token %>
+
+      <label>Title
+        <input type="text" name="binary[title]">
+      </label>
+      <input type="file" name="binary[file]">
+      <input type="submit">
+    </form>
+
+    <br>
+    <strong>Files</strong><br><br>
+    <%= render @binaries %>
+
+
+    <h3><%= link_to "Random New Jot", page_url(@rand_url), target: "_blank"%><h3>
+
+  </div>
+
+</div>
+
+<script>
+var editor = CodeMirror.fromTextArea(document.getElementById("codemirror"), {
+  lineNumbers: true,
+  mode: "ruby",
+  matchBrackets: true
+});
+</script>
+
+

@@ -1,0 +1,6 @@
+<%= render @sub %>
+
+<h1>Links</h1>
+<%= render @sub.links %>
+
+<%= link_to "Edit Sub", edit_sub_url(@sub) if current_user == @sub.moderator %>

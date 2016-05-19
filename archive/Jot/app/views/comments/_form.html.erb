@@ -1,0 +1,11 @@
+<h3>New Comment</h3>
+<form action="<%= comments_url %>" method="POST">
+
+  <%= authenticity_token %>
+
+  <label>Body
+  <textarea name="comment[body]"></textarea></label>
+
+  <input type="submit">
+
+</form>

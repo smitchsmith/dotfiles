@@ -1,0 +1,15 @@
+<div id="container" class="group">
+
+</div>
+
+<div id="modal" class="hidden"></div>
+
+<script type="application/json" id="bootstrapped_syntaxes">
+  <%= Syntax.all.to_json.html_safe %>
+</script>
+
+<script>
+  $(document).ready(function(){
+    Jot.initialize();
+  });
+</script>

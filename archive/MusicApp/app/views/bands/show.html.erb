@@ -1,0 +1,7 @@
+<h1><%= link_to @band.name, edit_band_url(@band) %></h1>
+
+<h3> <%= link_to "Albums", albums_url(@band) %> </h3>
+
+<%= render "albums/albums" %>
+
+<p><%= button_to "Delete Band", band_url(@band), method: "delete" %>

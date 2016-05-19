@@ -1,0 +1,35 @@
+<% if @album.persisted? %>
+  <form action="<%= album_url(@album) %>" method="post">
+<% else %>
+  <form action="<%= albums_url(@band) %>" method="post">
+<% end %>
+
+   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <% if @album.persisted? %>
+    <input type="hidden" name="_method" value="put">
+  <% end %>
+
+  <label for="band_name">Album Name</label>
+  <input type="text" name="album[name]" id="album_name" value="<%= @album.name %>">
+  <br><br>
+
+  <label for="album_kind">Album Kind</label>
+  <select name=album[kind] id="album_kind">
+    <% ["Studio", "Live"].each do |kind| %>
+      <option value="<%= kind %>" <%= "selected" if @album.kind == kind %> ><%= kind %></option>
+    <% end %>
+  </select>
+  <br><br>
+
+  <label for="album_band_id">Recorded By</label>
+  <select name=album[band_id] id="album_band_id">
+    <% @bands.each do |_band| %>
+      <option value="<%= _band.id %>" <%= "selected" if @band.id == _band.id  %> ><%= _band.name %></option>
+    <% end %>
+  </select>
+  <br><br>
+
+  <input type="submit" name="Create!">
+</form>
+

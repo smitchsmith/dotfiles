@@ -1,0 +1,12 @@
+<h1>User's Profile Page</h1>
+
+<p>Your user_name: <%= @user.user_name %></p>
+<p><%= link_to "Rent a cat today!", cats_url%>
+
+<p><%= link_to "Add Your Cat", new_cat_url %></p>
+
+<h1>Cats</h1>
+
+<% @cats.each do |cat| %>
+  <p>Name: <%=link_to cat.name, cat %> </p>
+<% end %>

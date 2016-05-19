@@ -1,0 +1,21 @@
+<h1><%= link_to @track.name, edit_track_url(@track) %></h1>
+
+<p><%= "(#{@track.kind} track)" if @track.kind %></p>
+
+<h4>
+  <%= link_to @album.name, album_url(@album) %> -
+  <%= link_to @band.name, band_url(@band) %>
+</h4>
+
+<h3>Lyrics</h3>
+<p><%= @track.lyrics %></p>
+
+<h3>Notes</h3>
+<%= render "notes/notes" %>
+
+<h3>Leave a note</h3>
+<%= render "notes/form" %>
+
+<br>
+<h3>Warning!</h3>
+<p><%= button_to "Delete Track", track_url(@track), method: "delete"%></p>

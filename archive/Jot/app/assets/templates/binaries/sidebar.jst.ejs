@@ -1,0 +1,18 @@
+<h3>Files</h3>
+
+<ul class="binary-list">
+  <% if (binaries.length === 0) { %>
+    <li>(no files attached)</li>
+  <% };%>
+
+  <% binaries.each(function (binary) { %>
+    <li>
+      <img id="trash" src="/assets/trash.png" class="delete_binary" data-id="<%= binary.id %>">
+      <a href="<%= binary.get("url") %>" download><%= binary.get("title") %></a>
+    </li><br>
+  <% }); %>
+</ul>
+<% if (Jot.current_user.id) { %>
+  <img id="open_upload_modal" src="/assets/plus.png">
+<% }; %>
+<span class="arrow-right"></span>

@@ -1,0 +1,34 @@
+<% if @friend_circle.persisted? %>
+  <form action="<%= friend_circle_url(@friend_circle)%>" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="user[friend_ids][]" value="">
+<% else%>
+  <form action="<%= friend_circles_url(@user)%>" method="POST">
+<% end %>
+
+    <input type="hidden" name="authenticity_token"
+    value="<%= form_authenticity_token%>">
+
+    <input type="text" name="friend_circle[title]"
+    value="<%= @friend_circle.title %>" placeholder="title" >
+    <br><br>
+
+    <% @users.each do |user| %>
+    <% html_id = "user_friend_ids_#{user.id}" %>
+    <input
+    type="checkbox"
+    name="user[friend_ids][]"
+    value="<%= user.id %>"
+    id="<%= html_id %>"
+    <%= "checked" if @friend_circle.friends.include?(user) %>
+    >
+
+    <label for="<%= html_id %>">
+      <%= user.email %>
+    </label>
+    <br>
+    <% end %>
+
+    <br>
+    <input type="submit" value="Submit">
+  </form>

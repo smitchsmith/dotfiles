@@ -1,0 +1,12 @@
+<%= render "comment", locals: {comment: @comment, comments_by_parent_id: @comments_by_parent_id} %>
+
+<h4>Add Comment</h4>
+<form action="<%= comment_reply_url(@comment) %>" method="post">
+
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+    <label>Body<input type="text" name="comment[text]"></label>
+
+    <input type="submit" value="Submit Comment">
+
+</form>

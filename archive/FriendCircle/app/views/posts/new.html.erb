@@ -1,0 +1,32 @@
+<form action="<%= posts_url(@user) %>" method="POST">
+  <input type="hidden" name="authenticity_token"
+  value="<%= form_authenticity_token%>">
+
+  <input type="hidden" name="post[user_id]" value="<%= @user.id %>">
+  <input type="text" name="post[body]" placeholder="Body">
+
+  <br>
+
+  <input type="text" name="link[1][address]" placeholder="Link 1">
+  <input type="text" name="link[2][address]" placeholder="Link 2">
+  <input type="text" name="link[3][address]" placeholder="Link 3">
+
+  <br>
+
+  <% @user.friend_circles.each do |fc| %>
+  <% html_id = "friend_circle_ids_#{fc.id}" %>
+  <input
+  type="checkbox"
+  name="friend_circle_ids[]"
+  value="<%= fc.id %>"
+  id="<%= html_id %>"
+  >
+
+  <label for="<%= html_id %>">
+    <%= fc.title %>
+  </label>
+  <br>
+  <% end %>
+
+  <input type="submit" value="Submit">
+</form>

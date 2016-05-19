@@ -1,0 +1,23 @@
+<div id="container" class="users_show">
+  <script>
+    $("#container").prepend($("#header"))
+  </script>
+
+  <h1>Change <%= @klass.to_s.downcase.capitalize %> Password</h1>
+  <br>
+  <form action="<%= @url %>" method="POST" data-remote="true">
+
+    <%= authenticity_token %>
+
+    <label>Enter old password
+    <input type="password" name="old_password"></label>
+    <br><br>
+    <label>Enter a new password
+    <input type="password" name="password1"></label>
+    <br><br>
+    <label>Enter the same password again
+    <input type="password" name="password2"></label>
+    <br><br>
+    <input type="submit">
+  </form>
+</div>

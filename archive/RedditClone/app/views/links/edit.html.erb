@@ -1,0 +1,40 @@
+<h1>Edit a link!</h1>
+
+<form action="<%= link_url(@link) %>" method="post">
+  <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+  <input type="hidden" name="_method" value="put">
+
+  <label>
+    Link Title:
+    <input type="text" name="link[title]" value="<%= @link.title %>">
+  </label>
+  <br>
+  <label>
+    Link URL:
+    <input type="text" name="link[url]" value="<%= @link.url %>">
+  </label>
+  <br>
+  <label>
+    Link Note:
+    <input type="text" name="link[text]" value="<%= @link.text %>">
+  </label>
+  <br>
+
+    <h5>Which subs do you want to add this to?</h5>
+
+    <% @subs.each do |sub| %>
+
+    <input type="checkbox"
+      name="subs[]"
+      value="<%= sub.id %>"
+      <%= "checked" if @link.subs.include?(sub) %>>
+    <%= sub.name %>
+    <br>
+    <% end %>
+
+    <input type="hidden" name="subs[]" value="">
+
+  <input type="submit" value="Edit Link">
+
+</form>

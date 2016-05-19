@@ -1,0 +1,8 @@
+<%= "(No Notes)" if @notes.empty? %>
+
+<% @notes.each_with_index do |note, i| %>
+<h4><%= "Note #{ i+1 }" %></h4>
+  <p>"<%= note.body %>"</p>
+  <p>By: <%= note.user.email %></p>
+  <p><%= button_to "Delete Note", note_url(note), method: "delete" %></p>
+<% end %>

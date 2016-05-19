@@ -1,0 +1,23 @@
+<img id="close_modal" class="hidden" src="assets/plus.png">
+<div id="is_public">
+  <label>Public?
+    <input type="checkbox"
+      <%= page.get("is_public") ? "checked" : "" %>
+      >
+  </label>
+</div>
+
+<div id="password">
+  <h3>
+    <label>Optional Password
+      <input type="password" id="password1">
+      <input type="password" id="password2">
+      <img src="/assets/save.png" id="save_password">
+    </label>
+  </h3>
+  <div class="hidden">
+    <div class="arrow-up"></div>
+    <p>Length must be at least 6</p>
+    <p>Passwords must match</p>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jot</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <script>
+  $(document).ready(function(){
+    $("#reset_password").on("click", function () {
+      $("#reset_password").parent().append("<br><br>Password reset sent!")
+    });
+  });
+  </script>
+  <header id="header" class="group">
+    <ul id="user_info" class="group">
+      <% if current_user %>
+        <li>
+          <%= link_to current_user.username, user_url(current_user) %>
+        </li>
+        <li class="icon dropdown">
+          <%= image_tag("/assets/settings.png") %>
+          <div class="hidden">
+            <%= button_to "Change Password", user_change_password_url(current_user), method: :get %>
+            <%= button_to "Reset Password", password_resets_url(current_user.id), method: "post", id: "reset_password", remote: true%>
+          </div>
+        </li>
+        <li><%= link_to (image_tag("/assets/full_star.png")), user_favorites_url(current_user), class: "icon star" %></li>
+        <li><%= link_to (image_tag("/assets/logout.png")), session_url, class: "icon" , method: "delete" %></li>
+      <% else %>
+        <li><%= link_to "Sign In", new_session_url %></li>
+        <li><%= link_to "Sign Up", new_user_url %></li>
+      <% end %>
+    </ul>
+  </header>
+
+<%= yield %>
+
+<script type="application/json" id="had_tour">
+ {"had_tour":<%= !!session[:had_tour] %>}
+</script>
+
+</body>
+</html>

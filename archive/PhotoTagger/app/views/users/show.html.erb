@@ -1,0 +1,17 @@
+<h1><%= @user.username %></h1>
+
+<p>Hello, dear user!</p>
+
+<%= render "photos/form" %>
+
+<script>
+  $("#photo-form").on("submit", function (event) {
+    event.preventDefault();
+
+    var photo = new PT.Photo ($(this).serializeJSON().photo);
+    var log = function (thing) {
+      console.log(thing);
+    };
+    photo.save(log);
+  });
+</script>

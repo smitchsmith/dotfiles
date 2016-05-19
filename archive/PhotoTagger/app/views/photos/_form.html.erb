@@ -1,0 +1,14 @@
+<form id="photo-form">
+
+  <label>URL
+    <input type="text" name="photo[url]"
+      value="<%= @photo ? @photo.url : "" %>">
+  </label>
+
+  <label>Title
+    <input type="text" name="photo[title]"
+    value="<%= @photo ? @photo.title : "" %>">
+  </label>
+
+  <input type="submit">
+</form>
